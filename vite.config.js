@@ -25,8 +25,10 @@ function structuredData() {
     knowsLanguage: ['id', 'en'],
     sameAs: [profile.linkedin, profile.github],
   };
-  const page = { '@context': 'https://schema.org', '@type': 'ProfilePage', url: person.url, mainEntity: person };
-  return JSON.stringify(page).replace(/</g, '\\u003c');
+  const page = { '@type': 'ProfilePage', url: person.url, mainEntity: person };
+  // WebSite tells Google which name to show for the site in results
+  const website = { '@type': 'WebSite', name: profile.name, alternateName: `${profile.name} Portfolio`, url: person.url };
+  return JSON.stringify({ '@context': 'https://schema.org', '@graph': [website, page] }).replace(/</g, '\\u003c');
 }
 
 function seo() {

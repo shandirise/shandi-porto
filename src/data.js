@@ -9,7 +9,7 @@ export const profile = {
   name: 'Shandi Himawan',
   role: { en: 'Fullstack Developer', id: 'Fullstack Developer' },
   location: { en: 'Indonesia, Central Java', id: 'Purwokerto, Jawa Tengah' },
-  photo: '/images/photo.png', // files in public/ are served from the site root — no "/public" in the path
+  photo: '/images/shandi-himawan.png', // files in public/ are served from the site root — no "/public" in the path
   summary: {
     en: 'Full-stack developer with a Bachelor of Informatics Engineering and a strong foundation in programming. Experienced in delivering real-world projects, including a recent pilot project in Europe, where I worked across the stack and adapted to international standards and expectations. I approach problems analytically, breaking down complexity into clean, maintainable solutions. Looking to join a team where I can build scalable, reliable web applications from database to interface.',
     id: 'Full-stack developer lulusan Sarjana Teknik Informatika dengan fondasi pemrograman yang kuat. Berpengalaman menyelesaikan proyek nyata, termasuk pilot project terbaru di Eropa, di mana saya bekerja di seluruh stack dan beradaptasi dengan standar serta ekspektasi internasional. Saya mendekati masalah secara analitis, memecah kompleksitas menjadi solusi yang bersih dan mudah dipelihara (maintainable). Saya ingin bergabung dengan tim yang memungkinkan saya membangun web application yang scalable dan andal, dari database hingga interface.',
