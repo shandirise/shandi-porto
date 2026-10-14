@@ -3,36 +3,37 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Shandi Himawan — Web Developer | Portfolio</title>
-    <meta name="description" content="Shandi Himawan, web developer from Purwokerto, Indonesia. Projects in Laravel, PHP, JavaScript &amp; React Native, plus experience and certificates." />
-    <meta name="keywords" content="Shandi Himawan, Shandi Himawan portfolio, web developer, web developer Indonesia, web developer Purwokerto, pengembang web, Laravel developer, PHP developer, front-end developer, Teknik Informatika, Universitas Muhammadiyah Purwokerto" />
+    <title>Shandi Himawan — Fullstack Web Developer | Portfolio</title>
+    <meta name="description" content="Shandi Himawan, fullstack web developer from Central Java, Indonesia. Projects in Laravel, PHP, JavaScript &amp; React Native, plus experience and certificates." />
+    <meta name="keywords" content="Shandi Himawan, Shandi Himawan portfolio, web developer, fullstack developer, full-stack web developer, web developer Indonesia, web developer Purwokerto, pengembang web, Laravel developer, PHP developer, Teknik Informatika, Universitas Muhammadiyah Purwokerto" />
     <meta name="author" content="Shandi Himawan" />
     <meta name="robots" content="index, follow, max-image-preview:large" />
-    <meta name="theme-color" content="#05030a" />
+    <meta name="theme-color" content="#0a090c" />
     <meta property="og:type" content="profile" />
     <meta property="og:site_name" content="Shandi Himawan" />
-    <meta property="og:title" content="Shandi Himawan — Web Developer" />
-    <meta property="og:description" content="Portfolio of Shandi Himawan, web developer from Purwokerto, Indonesia: journey, projects, code mastery, and certificates." />
+    <meta property="og:title" content="Shandi Himawan — Fullstack Web Developer" />
+    <meta property="og:description" content="Portfolio of Shandi Himawan, fullstack web developer from Indonesia: journey, projects, code mastery, and certificates." />
     <meta property="og:locale" content="en_US" />
     <meta property="og:locale:alternate" content="id_ID" />
     <meta property="profile:first_name" content="Shandi" />
     <meta property="profile:last_name" content="Himawan" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Shandi Himawan — Web Developer" />
-    <meta name="twitter:description" content="Portfolio of Shandi Himawan, web developer from Purwokerto, Indonesia." />
+    <meta name="twitter:title" content="Shandi Himawan — Fullstack Web Developer" />
+    <meta name="twitter:description" content="Portfolio of Shandi Himawan, fullstack web developer from Indonesia." />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <noscript><style>.reveal { opacity: 1; transform: none; }</style></noscript>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
   </head>
   <body>
     <canvas id="cosmos" aria-hidden="true"></canvas>
+    <div class="grain" aria-hidden="true"></div>
     <div class="scroll-progress" aria-hidden="true"><span id="scroll-bar"></span></div>
 
     <header class="site-header" id="site-header">
       <div class="container header-inner">
-        <a href="#top" class="brand" aria-label="Shandi Himawan">SH<span>.</span></a>
+        <a href="#top" class="brand">Shandi Himawan</a>
         <nav class="site-nav" id="site-nav">
           <a href="#about" data-i18n="nav.about">About</a>
           <a href="#journey" data-i18n="nav.journey">Journey</a>
@@ -44,7 +45,7 @@
         </nav>
         <div class="header-actions">
           <button class="lang-toggle" id="lang-toggle" type="button">
-            <span data-lang="en">EN</span><span data-lang="id">ID</span>
+            <span data-lang="en">EN</span><span aria-hidden="true">/</span><span data-lang="id">ID</span>
           </button>
           <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
             <span class="sr-only" data-i18n="menu">Menu</span><i></i><i></i>
@@ -56,26 +57,25 @@
     <main id="top">
       <section class="hero" id="hero">
         <div class="container hero-inner">
-          <p class="eyebrow" data-i18n="hero.hello">Hi, I’m</p>
-          <h1 class="hero-name">Shandi <span>Himawan</span></h1>
-          <p class="hero-role">
-            <span id="hero-role">Web Developer</span>
-            <span class="dot" aria-hidden="true"></span>
-            <span id="hero-location">Purwokerto, Central Java</span>
+          <p class="hero-meta">
+            <span id="hero-location">Indonesia, Central Java</span>
+            <span class="hero-clock"><time id="local-time">--:--</time> WIB · <span data-i18n="hero.time">local time</span></span>
           </p>
+          <h1 class="hero-name">Shandi <em>Himawan</em></h1>
+          <p class="hero-role" id="hero-role">Fullstack Developer</p>
           <div class="hero-cta">
-            <a href="#journey" class="btn btn-primary" data-i18n="hero.explore">Explore my journey</a>
-            <a href="#contact" class="btn btn-ghost" data-i18n="hero.contact">Get in touch</a>
+            <a href="#journey" class="btn" data-i18n="hero.explore">Explore my journey</a>
+            <a href="#contact" class="link-arrow"><span data-i18n="hero.contact">Get in touch</span> <span aria-hidden="true">→</span></a>
           </div>
           <dl class="stats" id="stats"></dl>
         </div>
-        <a href="#about" class="scroll-hint"><span data-i18n="hero.scroll">Scroll to orbit</span><i aria-hidden="true"></i></a>
+        <a href="#about" class="scroll-hint"><span data-i18n="hero.scroll">Scroll</span> <span aria-hidden="true">↓</span></a>
       </section>
 
       <section class="section" id="about">
         <div class="container">
           <header class="section-head reveal">
-            <span class="section-index">01</span>
+            <p class="section-label">01 — <span data-i18n="nav.about">About</span></p>
             <h2 data-i18n="about.title">About Me</h2>
           </header>
           <div class="about-grid" id="about-content"></div>
@@ -85,43 +85,45 @@
       <section class="section" id="journey">
         <div class="container">
           <header class="section-head reveal">
-            <span class="section-index">02</span>
+            <p class="section-label">02 — <span data-i18n="nav.journey">Journey</span></p>
             <h2 data-i18n="journey.title">My Journey</h2>
-            <p data-i18n="journey.sub"></p>
+            <p class="section-sub" data-i18n="journey.sub"></p>
           </header>
-          <div class="filters reveal" id="journey-filters" role="group"></div>
-          <div class="timeline" id="timeline"></div>
+          <div class="panel">
+            <div class="filters" id="journey-filters" role="group"></div>
+            <div class="timeline" id="timeline"></div>
+          </div>
         </div>
       </section>
 
       <section class="section" id="projects">
         <div class="container">
           <header class="section-head reveal">
-            <span class="section-index">03</span>
+            <p class="section-label">03 — <span data-i18n="nav.projects">Projects</span></p>
             <h2 data-i18n="projects.title">Projects</h2>
-            <p data-i18n="projects.sub"></p>
+            <p class="section-sub" data-i18n="projects.sub"></p>
           </header>
-          <div class="project-grid" id="project-grid"></div>
+          <div class="panel project-list" id="project-grid"></div>
         </div>
       </section>
 
       <section class="section" id="skills">
         <div class="container">
           <header class="section-head reveal">
-            <span class="section-index">04</span>
+            <p class="section-label">04 — <span data-i18n="nav.skills">Code Mastery</span></p>
             <h2 data-i18n="skills.title">Code Mastery</h2>
-            <p data-i18n="skills.sub"></p>
+            <p class="section-sub" data-i18n="skills.sub"></p>
           </header>
-          <div class="skill-grid" id="skill-grid"></div>
+          <div class="panel" id="skill-grid"></div>
         </div>
       </section>
 
       <section class="section" id="gallery">
         <div class="container">
           <header class="section-head reveal">
-            <span class="section-index">05</span>
+            <p class="section-label">05 — <span data-i18n="nav.gallery">Gallery</span></p>
             <h2 data-i18n="gallery.title">Gallery</h2>
-            <p data-i18n="gallery.sub"></p>
+            <p class="section-sub" data-i18n="gallery.sub"></p>
           </header>
           <div class="gallery-grid" id="gallery-grid"></div>
         </div>
@@ -130,24 +132,25 @@
       <section class="section" id="certificates">
         <div class="container">
           <header class="section-head reveal">
-            <span class="section-index">06</span>
+            <p class="section-label">06 — <span data-i18n="nav.certificates">Certificates</span></p>
             <h2 data-i18n="certificates.title">Certificates</h2>
-            <p data-i18n="certificates.sub"></p>
+            <p class="section-sub" data-i18n="certificates.sub"></p>
           </header>
-          <div class="cert-grid" id="cert-grid"></div>
+          <div class="panel cert-list" id="cert-grid"></div>
         </div>
       </section>
 
       <section class="section section-contact" id="contact">
         <div class="container">
-          <div class="contact-card reveal" id="contact-card"></div>
+          <div class="contact reveal" id="contact-card"></div>
         </div>
       </section>
     </main>
 
     <footer class="site-footer">
-      <div class="container">
+      <div class="container footer-inner">
         <p>© <span id="year"></span> Shandi Himawan. <span data-i18n="footer"></span></p>
+        <a href="#top"><span data-i18n="top">Back to top</span> <span aria-hidden="true">↑</span></a>
       </div>
     </footer>
 

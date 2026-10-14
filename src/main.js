@@ -147,6 +147,14 @@ const sectionObserver = new IntersectionObserver(
 );
 document.querySelectorAll('main section[id]').forEach((s) => sectionObserver.observe(s));
 
+// Local time in Indonesia (WIB), useful for recruiters in other timezones
+const clock = $('local-time');
+const tick = () => {
+  clock.textContent = new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Jakarta', hour: '2-digit', minute: '2-digit' }).format(new Date());
+};
+tick();
+setInterval(tick, 30000);
+
 render();
 onScroll();
 // Three.js is loaded separately so the text appears before the 3D scene is ready

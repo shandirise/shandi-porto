@@ -370,21 +370,22 @@ export const ui = {
     contact: { en: 'Contact', id: 'Kontak' },
   },
   hero: {
-    hello: { en: 'Hi, I’m', id: 'Halo, saya' },
+    time: { en: 'local time', id: 'waktu setempat' },
     explore: { en: 'Explore my journey', id: 'Jelajahi perjalanan saya' },
     contact: { en: 'Get in touch', id: 'Hubungi saya' },
-    scroll: { en: 'Scroll to orbit', id: 'Gulir untuk mengorbit' },
+    scroll: { en: 'Scroll', id: 'Gulir' },
   },
   stats: {
     gpa: { en: 'GPA', id: 'IPK' },
     projects: { en: 'Projects', id: 'Proyek' },
     work: { en: 'Work roles', id: 'Pengalaman kerja' },
-    orgs: { en: 'Organization roles', id: 'Peran organisasi' },
+    orgs: { en: 'Organizations', id: 'Organisasi' },
   },
   about: {
     title: { en: 'About Me', id: 'Tentang Saya' },
     education: { en: 'Education', id: 'Pendidikan' },
     languages: { en: 'Languages', id: 'Bahasa' },
+    location: { en: 'Based in', id: 'Domisili' },
   },
   journey: {
     title: { en: 'My Journey', id: 'Perjalanan Saya' },
@@ -423,6 +424,7 @@ export const ui = {
     email: { en: 'Email me', id: 'Kirim email' },
   },
   footer: { en: 'Built with Three.js & Vite.', id: 'Dibuat dengan Three.js & Vite.' },
+  top: { en: 'Back to top', id: 'Kembali ke atas' },
   langLabel: { en: 'Ganti ke Bahasa Indonesia', id: 'Switch to English' },
   menu: { en: 'Menu', id: 'Menu' },
 };

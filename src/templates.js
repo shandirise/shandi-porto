@@ -20,15 +20,10 @@ export const pick = (v, lang) => (v && typeof v === 'object' && !Array.isArray(v
 const esc = (s) =>
   String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
 
-const icons = {
-  mail: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>',
-  pin: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>',
-  arrow: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>',
-  image: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="m21 16-5-5-9 9"/></svg>',
-  award: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="m8.5 14-1.5 7 5-3 5 3-1.5-7"/></svg>',
-  github: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 0-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2 0-.3-.5-1.5.2-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.7 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.5.4.9 1.1.9 2.2v3.3c0 .3.1.7.8.6A12 12 0 0 0 12 .3"/></svg>',
-  linkedin: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>',
-};
+const pad = (n) => String(n).padStart(2, '0');
+
+// Last word in italics, e.g. "Let’s work <em>together</em>"
+const italicLast = (text) => esc(text).replace(/(\S+)$/, '<em>$1</em>');
 
 const sortKey = ([year, month = 0]) => year * 100 + month;
 
@@ -45,6 +40,7 @@ const FILTERS = ['all', 'education', 'work', 'org', 'project'];
 export function renderSections(lang) {
   const t = (v) => pick(v, lang);
   const list = (items) => items.map((p) => `<li>${esc(p)}</li>`).join('');
+  const external = (href, label) => `<a class="link-arrow" href="${esc(href)}" target="_blank" rel="noopener">${esc(label)} <span aria-hidden="true">↗</span></a>`;
 
   const formatDate = ([year, month]) =>
     month
@@ -56,9 +52,9 @@ export function renderSections(lang) {
 
   const stats = [
     [education.gpa, ui.stats.gpa],
-    [projects.length, ui.stats.projects],
-    [experience.length, ui.stats.work],
-    [organizations.length, ui.stats.orgs],
+    [pad(projects.length), ui.stats.projects],
+    [pad(experience.length), ui.stats.work],
+    [pad(organizations.length), ui.stats.orgs],
   ]
     .map(([value, label]) => `<div class="stat"><dt>${esc(t(label))}</dt><dd>${esc(value)}</dd></div>`)
     .join('');
@@ -67,31 +63,39 @@ export function renderSections(lang) {
     .split(' ')
     .map((w) => w[0])
     .join('');
-  const avatar = profile.photo
-    ? `<img src="${esc(profile.photo)}" alt="${esc(`${profile.name}, ${t(profile.role)}`)}" width="112" height="112" />`
-    : `<span>${esc(initials)}</span>`;
+  const portrait = profile.photo
+    ? `<img src="${esc(profile.photo)}" alt="${esc(`${profile.name}, ${t(profile.role)}`)}" width="500" height="500" loading="lazy" />`
+    : `<span class="portrait-initials">${esc(initials)}</span>`;
   const about = `
-    <div class="about-intro card reveal">
-      <div class="avatar">${avatar}</div>
+    <figure class="portrait reveal">
+      <div class="portrait-frame">${portrait}</div>
+      <figcaption>Fig. 01 — ${esc(profile.name)}</figcaption>
+    </figure>
+    <div class="about-body reveal">
       <p class="about-summary">${esc(t(profile.summary))}</p>
-      <p class="about-location">${icons.pin}${esc(t(profile.location))}, Indonesia</p>
-    </div>
-    <div class="about-side">
-      <article class="card reveal">
-        <p class="card-label">${esc(t(ui.about.education))}</p>
-        <h3>${esc(t(education.title))}</h3>
-        <p class="muted">${esc(education.org)} · ${formatRange(education.start, education.end)}</p>
-        <ul class="points">${list(t(education.points))}</ul>
-      </article>
-      <article class="card reveal">
-        <p class="card-label">${esc(t(ui.about.languages))}</p>
-        <ul class="points">${list(t(spokenLanguages))}</ul>
-      </article>
+      <dl class="facts">
+        <div class="fact">
+          <dt>${esc(t(ui.about.education))}</dt>
+          <dd>
+            <strong>${esc(t(education.title))}</strong>
+            <span>${esc(education.org)} · ${formatRange(education.start, education.end)}</span>
+            ${t(education.points).map((p) => `<span>${esc(p)}</span>`).join('')}
+          </dd>
+        </div>
+        <div class="fact">
+          <dt>${esc(t(ui.about.languages))}</dt>
+          <dd>${t(spokenLanguages).map((p) => `<span>${esc(p)}</span>`).join('')}</dd>
+        </div>
+        <div class="fact">
+          <dt>${esc(t(ui.about.location))}</dt>
+          <dd><span>${esc(t(profile.location))}</span></dd>
+        </div>
+      </dl>
     </div>`;
 
   const filters = FILTERS.map((f) => {
     const count = f === 'all' ? timeline.length : timeline.filter((i) => i.type === f).length;
-    return `<button type="button" class="chip${f === 'all' ? ' active' : ''}" data-filter="${f}" aria-pressed="${f === 'all'}">${esc(t(ui.journey[f]))} <span>${count}</span></button>`;
+    return `<button type="button" class="chip${f === 'all' ? ' active' : ''}" data-filter="${f}" aria-pressed="${f === 'all'}">${esc(t(ui.journey[f]))}<sup>${count}</sup></button>`;
   }).join('');
 
   const years = [...new Set(timeline.map((i) => i.start[0]))];
@@ -106,15 +110,15 @@ export function renderSections(lang) {
             .map(
               (item) => `
             <li class="tl-item reveal" data-type="${item.type}">
-              <article class="card tl-card">
-                <div class="tl-meta">
-                  <span class="badge badge-${item.type}">${esc(t(ui.journey[item.type]))}</span>
-                  <time>${formatRange(item.start, item.end)}</time>
-                </div>
+              <div class="tl-when">
+                <time>${formatRange(item.start, item.end)}</time>
+                <span class="tl-type">${esc(t(ui.journey[item.type]))}</span>
+              </div>
+              <div class="tl-what">
                 <h3>${esc(t(item.title))}</h3>
-                <p class="muted">${esc(t(item.org))}${item.place ? ` · ${esc(item.place)}` : ''}</p>
+                <p class="tl-org">${esc(t(item.org))}${item.place ? ` · ${esc(item.place)}` : ''}</p>
                 <ul class="points">${list(t(item.points))}</ul>
-              </article>
+              </div>
             </li>`,
             )
             .join('')}
@@ -123,102 +127,97 @@ export function renderSections(lang) {
     )
     .join('');
 
-  const projectCards = projects
+  const projectRows = projects
     .map((p, i) => {
       const name = t(p.name);
-      const visual = p.image
-        ? `<img src="${esc(p.image)}" alt="${esc(`${name} — ${t(p.type)}`)}" loading="lazy" />`
-        : `<span class="project-orb" style="--hue:${262 + i * 14}"></span>`;
       return `
-      <article class="card project reveal">
-        <div class="project-visual">${visual}<span class="project-year">${p.year}</span></div>
-        <div class="project-body">
-          <p class="card-label">${esc(t(p.type))}</p>
+      <article class="project reveal${p.image ? ' has-thumb' : ''}">
+        <span class="project-index">P.${pad(i + 1)}</span>
+        <div class="project-main">
           <h3>${esc(name)}</h3>
           <ul class="points">${list(t(p.points))}</ul>
-          <div class="tags">${p.stack.map((s) => `<span class="tag">${esc(s)}</span>`).join('')}</div>
-          ${p.url ? `<a class="btn btn-ghost btn-sm" href="${esc(p.url)}" target="_blank" rel="noopener">${esc(t(ui.projects.live))}${icons.arrow}</a>` : ''}
+          <p class="project-stack">${p.stack.map(esc).join(' · ')}</p>
         </div>
+        <div class="project-meta">
+          <span>${esc(t(p.type))}</span>
+          <span>${p.year}</span>
+          ${p.url ? external(p.url, t(ui.projects.live)) : ''}
+        </div>
+        ${p.image ? `<img class="project-thumb" src="${esc(p.image)}" alt="${esc(`${name} — ${t(p.type)}`)}" loading="lazy" />` : ''}
       </article>`;
     })
     .join('');
 
-  const skills =
-    skillGroups
-      .map(
-        (group) => `
-    <article class="card skill-card reveal">
-      <p class="card-label">${esc(t(group.title))}</p>
-      <ul class="skill-list">
-        ${group.items
-          .map((skill) => {
-            const usedIn = projects.filter((p) => p.stack.includes(skill)).map((p) => t(p.name));
-            return `<li>
-              <span class="skill-name">${esc(skill)}</span>
-              ${usedIn.length ? `<span class="skill-used"><small>${esc(t(ui.skills.usedIn))}</small>${usedIn.map(esc).join(' · ')}</span>` : ''}
-            </li>`;
-          })
-          .join('')}
-      </ul>
-    </article>`,
-      )
-      .join('') +
-    `
-    <article class="card skill-card reveal">
-      <p class="card-label">${esc(t(ui.skills.soft))}</p>
-      <div class="tags">${t(softSkills).map((s) => `<span class="tag">${esc(s)}</span>`).join('')}</div>
-    </article>`;
+  const skills = `
+    <div class="skill-columns">
+      ${skillGroups
+        .map(
+          (group) => `
+        <div class="skill-col reveal">
+          <h3 class="skill-heading">${esc(t(group.title))}</h3>
+          <ul class="skill-list">
+            ${group.items
+              .map((skill) => {
+                const usedIn = projects.filter((p) => p.stack.includes(skill)).map((p) => t(p.name));
+                return `<li><span class="skill-name">${esc(skill)}</span>${
+                  usedIn.length ? `<span class="skill-used">${esc(t(ui.skills.usedIn))} ${usedIn.map(esc).join(', ')}</span>` : ''
+                }</li>`;
+              })
+              .join('')}
+          </ul>
+        </div>`,
+        )
+        .join('')}
+    </div>
+    <p class="skill-soft reveal"><span>${esc(t(ui.skills.soft))}</span>${t(softSkills).map(esc).join(' · ')}</p>`;
 
   const galleryItems = gallery
     .map((g, i) => {
       if (!g.src) {
-        return `<div class="gallery-item placeholder reveal">${icons.image}<span>${esc(t(ui.gallery.soon))}</span></div>`;
+        return `<div class="gallery-item placeholder reveal"><span class="gallery-num">${pad(i + 1)}</span><span>${esc(t(ui.gallery.soon))}</span></div>`;
       }
       const caption = t(g.caption) || '';
       return `<button type="button" class="gallery-item reveal" data-index="${i}">
         <img src="${esc(g.src)}" alt="${esc(caption || profile.name)}" loading="lazy" />
-        ${caption ? `<span class="gallery-caption">${esc(caption)}</span>` : ''}
+        <span class="gallery-caption">${pad(i + 1)}${caption ? ` — ${esc(caption)}` : ''}</span>
       </button>`;
     })
     .join('');
 
-  const certCards = certificates
-    .map((c) => {
+  const certRows = certificates
+    .map((c, i) => {
       const filled = c.title;
-      const visual = c.image
-        ? `<img src="${esc(c.image)}" alt="${esc(t(c.title))}" loading="lazy" />`
-        : `<span class="cert-icon">${icons.award}</span>`;
       return `
-      <article class="card cert reveal${filled ? '' : ' placeholder'}">
-        <div class="cert-visual">${visual}</div>
-        <div class="cert-body">
-          <h3>${esc(filled ? t(c.title) : t(ui.certificates.soon))}</h3>
-          ${filled ? `<p class="muted">${esc([t(c.issuer), c.year].filter(Boolean).join(' · '))}</p>` : ''}
-          ${c.url ? `<a class="btn btn-ghost btn-sm" href="${esc(c.url)}" target="_blank" rel="noopener">${esc(t(ui.certificates.view))}${icons.arrow}</a>` : ''}
-        </div>
+      <article class="cert reveal${filled ? '' : ' placeholder'}${c.image ? ' has-thumb' : ''}">
+        <span class="cert-index">C.${pad(i + 1)}</span>
+        <h3>${esc(filled ? t(c.title) : t(ui.certificates.soon))}</h3>
+        <span class="cert-meta">${filled ? esc([t(c.issuer), c.year].filter(Boolean).join(' · ')) : '—'}</span>
+        ${c.url ? external(c.url, t(ui.certificates.view)) : '<span></span>'}
+        ${c.image ? `<img class="cert-thumb" src="${esc(c.image)}" alt="${esc(t(c.title))}" loading="lazy" />` : ''}
       </article>`;
     })
     .join('');
 
   const contact = `
-    <h2>${esc(t(ui.contact.title))}</h2>
+    <p class="section-label">07 — ${esc(t(ui.nav.contact))}</p>
+    <h2>${italicLast(t(ui.contact.title))}</h2>
     <p class="contact-sub">${esc(t(ui.contact.sub))}</p>
-    <a class="btn btn-primary btn-lg" href="mailto:${esc(profile.email)}">${icons.mail}${esc(profile.email)}</a>
-    <div class="contact-links">
-      <a href="${esc(profile.linkedin)}" target="_blank" rel="noopener me">${icons.linkedin}LinkedIn</a>
-      <a href="${esc(profile.github)}" target="_blank" rel="noopener me">${icons.github}GitHub</a>
-      <span>${icons.pin}${esc(t(profile.location))}</span>
-    </div>`;
+    <a class="contact-email" href="mailto:${esc(profile.email)}">${esc(profile.email)}</a>
+    <ul class="contact-links">
+      <li><a href="${esc(profile.linkedin)}" target="_blank" rel="noopener me">LinkedIn <span aria-hidden="true">↗</span></a></li>
+      <li><a href="${esc(profile.github)}" target="_blank" rel="noopener me">GitHub <span aria-hidden="true">↗</span></a></li>
+      <li>${esc(t(profile.location))}</li>
+    </ul>`;
 
   return {
     stats,
     'about-content': about,
     'journey-filters': filters,
     timeline: journey,
-    'project-grid': projectCards,
+    'project-grid': projectRows,
     'skill-grid': skills,
     'gallery-grid': galleryItems,
-    'cert-grid': certCards,
+    'cert-grid': certRows,
     'contact-card': contact,
   };
 }
