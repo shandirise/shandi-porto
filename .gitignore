@@ -3,3 +3,5 @@ dist
 .vercel
 # CV contains a private phone number
 *.pdf
+# ...but certificates in public/ are meant to be published
+!public/**/*.pdf

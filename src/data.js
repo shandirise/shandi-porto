@@ -351,11 +351,28 @@ export const gallery = [
   { src: '', caption: { en: '', id: '' } },
 ];
 
-// Placeholders: fill in title / issuer / year / image (and optional url to verify).
+// To add one: copy an entry. `image` is the thumbnail, `url` what opens on click (e.g. the PDF), `points` optional.
+// An entry with an empty title shows as a "coming soon" placeholder.
 export const certificates = [
-  { title: '', issuer: '', year: '', image: '', url: '' },
-  { title: '', issuer: '', year: '', image: '', url: '' },
-  { title: '', issuer: '', year: '', image: '', url: '' },
+  {
+    title: { en: 'Certificate of Competence — Programmer', id: 'Sertifikat Kompetensi — Pemrogram' },
+    issuer: { en: 'BNSP · LSP Universitas Muhammadiyah Purwokerto', id: 'BNSP · LSP Universitas Muhammadiyah Purwokerto' },
+    year: '2026',
+    image: '/images/certificates/bnsp-programmer-shandi-himawan.jpg',
+    url: '/images/certificates/bnsp-programmer-shandi-himawan.pdf',
+    points: {
+      en: [
+        'Certified competent as a Programmer in Software Development by BNSP (Indonesian Professional Certification Authority), based on the national SKKNI standard',
+        '9 competency units: software specifications, coding guidelines and best practices, structured and object-oriented programming, libraries and pre-existing components, database access, code documentation, debugging, and unit testing',
+        'Issued 29 April 2026 · valid for 3 years',
+      ],
+      id: [
+        'Dinyatakan kompeten sebagai Pemrogram di bidang Pengembangan Perangkat Lunak oleh BNSP (Badan Nasional Sertifikasi Profesi), berdasarkan standar SKKNI',
+        '9 unit kompetensi: spesifikasi program, penulisan kode sesuai guidelines dan best practices, pemrograman terstruktur dan berorientasi objek, library dan komponen pre-existing, akses basis data, dokumentasi kode, debugging, dan pengujian unit program',
+        'Diterbitkan 29 April 2026 · berlaku 3 tahun',
+      ],
+    },
+  },
 ];
 
 // Interface text
@@ -416,7 +433,7 @@ export const ui = {
     title: { en: 'Certificates', id: 'Sertifikat' },
     sub: { en: 'Courses and achievements.', id: 'Kursus dan pencapaian.' },
     soon: { en: 'Certificate coming soon', id: 'Sertifikat segera hadir' },
-    view: { en: 'Verify', id: 'Verifikasi' },
+    view: { en: 'View certificate', id: 'Lihat sertifikat' },
   },
   contact: {
     title: { en: 'Let’s work together', id: 'Mari bekerja sama' },

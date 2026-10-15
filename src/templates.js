@@ -187,13 +187,17 @@ export function renderSections(lang) {
   const certRows = certificates
     .map((c, i) => {
       const filled = c.title;
+      const thumb = c.image ? `<img src="${esc(c.image)}" alt="${esc(`${t(c.title)} — ${profile.name}`)}" loading="lazy" />` : '';
       return `
       <article class="cert reveal${filled ? '' : ' placeholder'}${c.image ? ' has-thumb' : ''}">
         <span class="cert-index">C.${pad(i + 1)}</span>
-        <h3>${esc(filled ? t(c.title) : t(ui.certificates.soon))}</h3>
-        <span class="cert-meta">${filled ? esc([t(c.issuer), c.year].filter(Boolean).join(' · ')) : '—'}</span>
-        ${c.url ? external(c.url, t(ui.certificates.view)) : '<span></span>'}
-        ${c.image ? `<img class="cert-thumb" src="${esc(c.image)}" alt="${esc(t(c.title))}" loading="lazy" />` : ''}
+        <div class="cert-main">
+          <h3>${esc(filled ? t(c.title) : t(ui.certificates.soon))}</h3>
+          ${filled ? `<p class="cert-meta">${esc([t(c.issuer), c.year].filter(Boolean).join(' · '))}</p>` : ''}
+          ${c.points ? `<ul class="points">${list(t(c.points))}</ul>` : ''}
+          ${c.url ? `<p class="cert-link">${external(c.url, t(ui.certificates.view))}</p>` : ''}
+        </div>
+        ${thumb ? (c.url ? `<a class="cert-thumb" href="${esc(c.url)}" target="_blank" rel="noopener">${thumb}</a>` : `<span class="cert-thumb">${thumb}</span>`) : ''}
       </article>`;
     })
     .join('');
