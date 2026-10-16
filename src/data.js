@@ -375,12 +375,51 @@ export const certificates = [
   },
 ];
 
+// Research. Once the article is out: set `status`, add `url` (DOI or journal page),
+// and `pdf` only if the journal allows sharing the full text.
+// `project` links the paper to the project with the same name.
+export const publications = [
+  {
+    title:
+      'Separation of Concerns in Native PHP Web Applications: A Design Science Evaluation of Security, Testability, and Maintainability',
+    authors: ['Shandi Himawan', 'Dimara Kusuma Hakim', 'Feri Wibowo', 'Harjono'],
+    affiliation: { en: 'Department of Informatics Engineering, Universitas Muhammadiyah Purwokerto', id: 'Program Studi Teknik Informatika, Universitas Muhammadiyah Purwokerto' },
+    venue: 'Jurnal E-Komtek',
+    issn: 'p-ISSN 2580-3719 · e-ISSN 2622-3066',
+    year: 2026,
+    status: { en: 'Forthcoming — expected December 2026', id: 'Segera terbit — perkiraan Desember 2026' },
+    note: { en: 'Undergraduate thesis research', id: 'Penelitian skripsi' },
+    project: 'Smart IAO',
+    url: '',
+    pdf: '',
+    summary: {
+      en: 'Proposes a lightweight convention for native PHP apps without a framework: each feature is split into a UI Page (renders the form, checks access) and an Action Handler (handles POST, validation, and database work, with zero HTML). Evaluated on the leave permit workflow of Smart IAO with code metrics and 15 security and workflow test cases.',
+      id: 'Mengusulkan konvensi ringan untuk aplikasi PHP native tanpa framework: setiap fitur dipisah menjadi UI Page (merender formulir, memeriksa akses) dan Action Handler (menangani POST, validasi, dan operasi basis data, tanpa HTML). Dievaluasi pada alur pengajuan izin di Smart IAO dengan metrik kode dan 15 kasus uji keamanan serta alur kerja.',
+    },
+    findings: [
+      { value: '15/15', label: { en: 'black-box test cases passed', id: 'kasus uji black box lulus' } },
+      { value: '0', label: { en: 'lines of HTML in the Action Handler', id: 'baris HTML di Action Handler' } },
+      { value: '6', label: { en: 'security layers in the handler', id: 'lapisan keamanan di handler' } },
+      { value: '3', label: { en: 'OWASP Top 10:2025 risks tested', id: 'risiko OWASP Top 10:2025 diuji' } },
+    ],
+    abstract: {
+      en: 'Many academic web systems built with PHP combine presentation logic, business logic, and database access code within a single file. This article proposes and evaluates a lightweight, framework independent convention for the separation of presentation and logic in the user submission workflow of the Leave Permit Management module in the Smart IAO web application. The UI Page handles form rendering and page access control, while the Action Handler handles POST requests, validation, and database operations. The evaluation uses 15 purposively selected black box test cases and structural indicators based on three researcher defined DSR evaluation criteria. In the audited source snapshot, the UI Page comprises 218 physical lines and the Action Handler comprises 117 physical lines; the Action Handler contains no HTML markup. Extended McCabe analysis gives file level Cyclomatic Complexity values of 4 for the UI Page and 19 for the Action Handler. The higher handler value shows that responsibility separation does not by itself eliminate branching complexity. All 15 test cases passed under the specified scenarios. These findings provide preliminary evidence and are limited to the user submission workflow.',
+      id: 'Banyak sistem web akademik yang dibangun dengan PHP menggabungkan logika presentasi, logika bisnis, dan akses basis data dalam satu berkas. Artikel ini mengusulkan dan mengevaluasi konvensi ringan yang tidak bergantung pada framework untuk memisahkan presentasi dan logika pada alur pengajuan pengguna dalam modul Leave Permit Management pada aplikasi web Smart IAO. UI Page menangani perenderan formulir dan pengendalian akses halaman, sedangkan Action Handler menangani permintaan POST, validasi, dan operasi basis data. Evaluasi menggunakan 15 kasus uji black box yang dipilih secara terarah dan indikator struktural berdasarkan tiga kriteria evaluasi DSR yang dirumuskan peneliti. Pada snapshot sumber yang diaudit, UI Page terdiri atas 218 baris fisik dan Action Handler terdiri atas 117 baris fisik; Action Handler tidak mengandung markup HTML. Analisis McCabe yang diperluas menghasilkan Cyclomatic Complexity tingkat berkas sebesar 4 untuk UI Page dan 19 untuk Action Handler. Nilai handler yang lebih tinggi menunjukkan bahwa pemisahan tanggung jawab tidak dengan sendirinya menghilangkan kompleksitas percabangan. Seluruh 15 kasus uji lulus pada skenario yang ditentukan. Temuan ini memberikan bukti awal dan terbatas pada alur pengajuan pengguna.',
+    },
+    keywords: {
+      en: ['PHP', 'Separation of Presentation and Logic', 'Framework Independent Architecture', 'UI Page', 'Action Handler'],
+      id: ['PHP', 'Pemisahan Presentasi dan Logika', 'Arsitektur Tanpa Framework', 'UI Page', 'Action Handler'],
+    },
+  },
+];
+
 // Interface text
 export const ui = {
   nav: {
     about: { en: 'About', id: 'Tentang' },
     journey: { en: 'Journey', id: 'Perjalanan' },
     projects: { en: 'Projects', id: 'Proyek' },
+    research: { en: 'Research', id: 'Riset' },
     skills: { en: 'Code Mastery', id: 'Keahlian' },
     gallery: { en: 'Gallery', id: 'Galeri' },
     certificates: { en: 'Certificates', id: 'Sertifikat' },
@@ -412,11 +451,22 @@ export const ui = {
     work: { en: 'Work', id: 'Pekerjaan' },
     org: { en: 'Organization', id: 'Organisasi' },
     project: { en: 'Project', id: 'Proyek' },
+    research: { en: 'Research', id: 'Riset' },
   },
   projects: {
     title: { en: 'Projects', id: 'Proyek' },
     sub: { en: 'Things I’ve built along the way.', id: 'Hal-hal yang telah saya bangun.' },
     live: { en: 'Visit site', id: 'Kunjungi situs' },
+    research: { en: 'Read the research', id: 'Baca risetnya' },
+  },
+  research: {
+    title: { en: 'Research', id: 'Riset' },
+    sub: { en: 'My undergraduate thesis, written as a journal article.', id: 'Skripsi saya, ditulis sebagai artikel jurnal.' },
+    abstract: { en: 'Read the abstract', id: 'Baca abstrak' },
+    keywords: { en: 'Keywords', id: 'Kata kunci' },
+    read: { en: 'Read the paper', id: 'Baca artikel' },
+    pdf: { en: 'Download PDF', id: 'Unduh PDF' },
+    project: { en: 'Evaluated on', id: 'Dievaluasi pada' },
   },
   skills: {
     title: { en: 'Code Mastery', id: 'Penguasaan Kode' },

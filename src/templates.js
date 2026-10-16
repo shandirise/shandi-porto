@@ -12,6 +12,7 @@ import {
   spokenLanguages,
   gallery,
   certificates,
+  publications,
   ui,
 } from './data.js';
 
@@ -32,9 +33,16 @@ export const timeline = [
   ...experience.map((item) => ({ ...item, type: 'work' })),
   ...organizations.map((item) => ({ ...item, type: 'org' })),
   ...projects.map((p) => ({ title: p.name, org: p.type, start: [p.year], points: p.points, type: 'project' })),
+  ...publications.map((pub) => ({
+    title: pub.title,
+    org: { en: `${pub.venue} · ${pub.status.en}`, id: `${pub.venue} · ${pub.status.id}` },
+    start: [pub.year],
+    points: { en: [pub.summary.en], id: [pub.summary.id] },
+    type: 'research',
+  })),
 ].sort((a, b) => sortKey(a.start) - sortKey(b.start));
 
-const FILTERS = ['all', 'education', 'work', 'org', 'project'];
+const FILTERS = ['all', 'education', 'work', 'org', 'project', 'research'];
 
 // Returns { elementId: innerHTML } for every content container in index.html
 export function renderSections(lang) {
@@ -130,6 +138,7 @@ export function renderSections(lang) {
   const projectRows = projects
     .map((p, i) => {
       const name = t(p.name);
+      const paper = publications.some((pub) => pub.project === p.name);
       return `
       <article class="project reveal${p.image ? ' has-thumb' : ''}">
         <span class="project-index">P.${pad(i + 1)}</span>
@@ -142,8 +151,41 @@ export function renderSections(lang) {
           <span>${esc(t(p.type))}</span>
           <span>${p.year}</span>
           ${p.url ? external(p.url, t(ui.projects.live)) : ''}
+          ${paper ? `<a class="link-arrow" href="#research">${esc(t(ui.projects.research))} <span aria-hidden="true">↓</span></a>` : ''}
         </div>
         ${p.image ? `<img class="project-thumb" src="${esc(p.image)}" alt="${esc(`${name} — ${t(p.type)}`)}" loading="lazy" />` : ''}
+      </article>`;
+    })
+    .join('');
+
+  const research = publications
+    .map((pub) => {
+      const authors = pub.authors.map((a) => (a === profile.name ? `<strong>${esc(a)}</strong>` : esc(a))).join(', ');
+      const links = [
+        pub.url ? external(pub.url, t(ui.research.read)) : '',
+        pub.pdf ? external(pub.pdf, t(ui.research.pdf)) : '',
+        pub.project ? `<a class="link-arrow" href="#projects">${esc(t(ui.research.project))} ${esc(pub.project)} <span aria-hidden="true">↑</span></a>` : '',
+      ].filter(Boolean);
+      return `
+      <article class="panel paper reveal">
+        <p class="paper-meta">
+          <span class="paper-status">${esc(t(pub.status))}</span>
+          <span>${esc(pub.venue)}</span>
+          <span>${esc(pub.issn)}</span>
+        </p>
+        <h3 class="paper-title">${esc(pub.title)}</h3>
+        <p class="paper-authors">${authors}</p>
+        <p class="paper-affil">${esc(t(pub.affiliation))} · ${esc(t(pub.note))}</p>
+        <p class="paper-summary">${esc(t(pub.summary))}</p>
+        <dl class="paper-findings">
+          ${pub.findings.map((f) => `<div><dt>${esc(t(f.label))}</dt><dd>${esc(f.value)}</dd></div>`).join('')}
+        </dl>
+        <details class="paper-abstract">
+          <summary>${esc(t(ui.research.abstract))}</summary>
+          <p>${esc(t(pub.abstract))}</p>
+          <p class="paper-keywords"><span>${esc(t(ui.research.keywords))}</span>${t(pub.keywords).map(esc).join(' · ')}</p>
+        </details>
+        ${links.length ? `<p class="paper-links">${links.join('')}</p>` : ''}
       </article>`;
     })
     .join('');
@@ -203,7 +245,7 @@ export function renderSections(lang) {
     .join('');
 
   const contact = `
-    <p class="section-label">07 — ${esc(t(ui.nav.contact))}</p>
+    <p class="section-label">08 — ${esc(t(ui.nav.contact))}</p>
     <h2>${italicLast(t(ui.contact.title))}</h2>
     <p class="contact-sub">${esc(t(ui.contact.sub))}</p>
     <a class="contact-email" href="mailto:${esc(profile.email)}">${esc(profile.email)}</a>
@@ -219,6 +261,7 @@ export function renderSections(lang) {
     'journey-filters': filters,
     timeline: journey,
     'project-grid': projectRows,
+    'research-list': research,
     'skill-grid': skills,
     'gallery-grid': galleryItems,
     'cert-grid': certRows,
