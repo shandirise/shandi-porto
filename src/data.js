@@ -341,14 +341,16 @@ export const spokenLanguages = {
   id: ['Bahasa Indonesia — native', 'Bahasa Inggris — kemampuan kerja'],
 };
 
-// Placeholders: fill in `src` and `caption` once you have photos.
+// To add a photo: put it in public/images/gallery/ and add an entry. An empty `src` shows a "coming soon" placeholder.
 export const gallery = [
-  { src: '', caption: { en: '', id: '' } },
-  { src: '', caption: { en: '', id: '' } },
-  { src: '', caption: { en: '', id: '' } },
-  { src: '', caption: { en: '', id: '' } },
-  { src: '', caption: { en: '', id: '' } },
-  { src: '', caption: { en: '', id: '' } },
+  {
+    src: '/images/gallery/pilot-project-meeting-2026.jpg',
+    caption: { en: 'Pilot project meeting · Sep 2026', id: 'Rapat pilot project · Sep 2026' },
+  },
+  {
+    src: '/images/gallery/prometheus-academy-ambassador-signing.jpg',
+    caption: { en: 'Signing as Prometheus Academy Student Ambassador', id: 'Penandatanganan Duta Mahasiswa Prometheus Academy' },
+  },
 ];
 
 // To add one: copy an entry. `image` is the thumbnail, `url` what opens on click (e.g. the PDF), `points` optional.

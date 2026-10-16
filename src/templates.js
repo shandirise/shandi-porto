@@ -220,7 +220,7 @@ export function renderSections(lang) {
       }
       const caption = t(g.caption) || '';
       return `<button type="button" class="gallery-item reveal" data-index="${i}">
-        <img src="${esc(g.src)}" alt="${esc(caption || profile.name)}" loading="lazy" />
+        <img src="${esc(g.src)}" alt="${esc(caption ? `${caption} — ${profile.name}` : profile.name)}" loading="lazy" />
         <span class="gallery-caption">${pad(i + 1)}${caption ? ` — ${esc(caption)}` : ''}</span>
       </button>`;
     })
