@@ -124,7 +124,7 @@ export function renderSections(lang) {
               </div>
               <div class="tl-what">
                 <h3>${esc(t(item.title))}</h3>
-                <p class="tl-org">${esc(t(item.org))}${item.place ? ` · ${esc(item.place)}` : ''}</p>
+                <p class="tl-org">${esc(t(item.org))}${item.place ? ` · ${esc(t(item.place))}` : ''}</p>
                 <ul class="points">${list(t(item.points))}</ul>
               </div>
             </li>`,
@@ -151,6 +151,7 @@ export function renderSections(lang) {
           <span>${esc(t(p.type))}</span>
           <span>${p.year}</span>
           ${p.url ? external(p.url, t(ui.projects.live)) : ''}
+          ${p.repo ? external(p.repo, t(ui.projects.code)) : ''}
           ${paper ? `<a class="link-arrow" href="#research">${esc(t(ui.projects.research))} <span aria-hidden="true">↓</span></a>` : ''}
         </div>
         ${p.image ? `<img class="project-thumb" src="${esc(p.image)}" alt="${esc(`${name} — ${t(p.type)}`)}" loading="lazy" />` : ''}

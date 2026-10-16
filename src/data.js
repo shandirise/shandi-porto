@@ -147,6 +147,27 @@ export const experience = [
       ],
     },
   },
+  {
+    title: { en: 'Fullstack Developer (Pilot Project)', id: 'Fullstack Developer (Pilot Project)' },
+    org: 'Fundor.hu',
+    place: { en: 'Remote · Hungary', id: 'Remote · Hongaria' },
+    start: [2026, 9],
+    end: [2026, 10],
+    points: {
+      en: [
+        'One of three developers building Fundor.hu, a grant-matching platform that helps Hungarian SMEs find EU and national funding (Laravel, React, TypeScript)',
+        'Containerised the app with a multi-stage Docker build and deployed it to the cloud, including TLS and CSRF handling behind a reverse proxy',
+        'Built account features: email verification and password reset with 6-digit codes, bilingual Hungarian/English emails, and multiple company profiles',
+        'Built product features: an interactive grant calculator, a loan information page, how-to-apply guides and a consultation box, plus mobile layout fixes and the v2.0 rebrand',
+      ],
+      id: [
+        'Salah satu dari tiga developer yang membangun Fundor.hu, platform pencocokan hibah yang membantu UKM di Hongaria menemukan pendanaan Uni Eropa dan nasional (Laravel, React, TypeScript)',
+        'Mengemas aplikasi dengan multi-stage Docker build dan men-deploy-nya ke cloud, termasuk penanganan TLS dan CSRF di balik reverse proxy',
+        'Membangun fitur akun: verifikasi email dan reset kata sandi dengan kode 6 digit, email dwibahasa Hongaria/Inggris, serta beberapa profil perusahaan',
+        'Membangun fitur produk: kalkulator hibah interaktif, halaman informasi pinjaman, panduan cara mendaftar, dan kotak konsultasi, serta perbaikan tampilan mobile dan rebrand v2.0',
+      ],
+    },
+  },
 ];
 
 export const organizations = [
@@ -245,6 +266,7 @@ export const organizations = [
 ];
 
 // `stack` names must match the skill names below — that is how "Used in" is filled.
+// `url` = live site, `repo` = public source code (leave empty for client/proprietary code).
 export const projects = [
   {
     name: 'F1 Pedia',
@@ -252,6 +274,7 @@ export const projects = [
     year: 2023,
     stack: ['HTML', 'CSS'],
     url: 'https://shandirise.github.io/f1pedia/',
+    repo: 'https://github.com/shandirise/f1pedia',
     image: '',
     points: {
       en: ['Front-end built with plain HTML and CSS, no framework', 'Covers the 2023 Formula 1 season for fans'],
@@ -274,19 +297,66 @@ export const projects = [
     name: 'FitZone',
     type: { en: 'React Native App', id: 'Aplikasi React Native' },
     year: 2024,
-    stack: ['React Native', 'JavaScript'],
+    stack: ['React Native', 'TypeScript'],
     url: '',
+    repo: 'https://github.com/shandirise/project_01',
     image: '',
     points: {
-      en: ['Built with React Native', 'An app that helps users work out'],
-      id: ['Dibangun dengan React Native', 'Aplikasi untuk membantu pengguna berolahraga'],
+      en: [
+        'Mobile workout app built with React Native and TypeScript',
+        'Guided screens for warm-up, push-ups, sit-ups, squats and plank, plus a progress screen',
+      ],
+      id: [
+        'Aplikasi olahraga mobile yang dibangun dengan React Native dan TypeScript',
+        'Layar panduan untuk pemanasan, push-up, sit-up, squat, dan plank, serta layar progres',
+      ],
+    },
+  },
+  {
+    name: 'Todo App',
+    type: { en: 'Fullstack JavaScript', id: 'Fullstack JavaScript' },
+    year: 2025,
+    stack: ['Next.js', 'Express', 'JavaScript', 'SQL'],
+    url: '',
+    repo: 'https://github.com/shandirise/todo-app',
+    image: '',
+    points: {
+      en: [
+        'Next.js frontend with Redux Toolkit for state management',
+        'REST API built with Express and the Sequelize ORM on MySQL, with database migrations',
+      ],
+      id: [
+        'Frontend Next.js dengan Redux Toolkit untuk manajemen state',
+        'REST API dengan Express dan ORM Sequelize di MySQL, lengkap dengan migrasi database',
+      ],
+    },
+  },
+  {
+    name: 'SI-UMKM',
+    type: { en: 'Course project · Next.js', id: 'Tugas kuliah · Next.js' },
+    year: 2025,
+    stack: ['Next.js', 'TypeScript', 'GraphQL', 'Firebase', 'Tailwind CSS'],
+    url: 'https://si-umkm-o3rl.vercel.app',
+    repo: '', // add the repo link once the admin login no longer has a hardcoded password
+    image: '',
+    points: {
+      en: [
+        'Marketplace and training platform for Indonesian MSMEs (UMKM), built for the Framework-Based Programming course',
+        'Product catalogue, cart, checkout, order history, product reviews, and training registration',
+        'JWT-protected admin dashboard, REST and GraphQL (Apollo) APIs on Firebase, with user content sanitised against XSS',
+      ],
+      id: [
+        'Platform marketplace dan pelatihan untuk UMKM, dibuat untuk mata kuliah Pemrograman Berbasis Framework',
+        'Katalog produk, keranjang, checkout, riwayat pesanan, ulasan produk, dan pendaftaran pelatihan',
+        'Dashboard admin yang dilindungi JWT, API REST dan GraphQL (Apollo) di Firebase, dengan konten pengguna yang disanitasi dari XSS',
+      ],
     },
   },
   {
     name: { en: 'Tamansari Village Profile', id: 'Web Profil Desa Tamansari' },
-    type: { en: 'Laravel Web App', id: 'Web Laravel' },
+    type: { en: 'Native PHP Web App', id: 'Web PHP Native' },
     year: 2025,
-    stack: ['Laravel', 'PHP'],
+    stack: ['PHP'],
     url: '',
     image: '',
     points: {
@@ -314,20 +384,41 @@ export const projects = [
       ],
     },
   },
+  {
+    name: 'Fundor.hu',
+    type: { en: 'Pilot project · Laravel + React', id: 'Pilot project · Laravel + React' },
+    year: 2026,
+    stack: ['Laravel', 'PHP', 'React', 'TypeScript', 'Tailwind CSS', 'Docker'],
+    url: 'https://fundor.hu',
+    repo: '', // proprietary client code: no public code link
+    image: '',
+    points: {
+      en: [
+        'Grant-matching platform for Hungarian SMEs: checks a company profile against open EU and national funding calls and ranks the best matches',
+        'Built remotely in a team of three. My part: Docker build and cloud deployment, account security (email verification, password reset), the grant calculator, the loans page, and mobile fixes',
+        'Bilingual (Hungarian/English) and live at fundor.hu',
+      ],
+      id: [
+        'Platform pencocokan hibah untuk UKM di Hongaria: mencocokkan profil perusahaan dengan program pendanaan Uni Eropa dan nasional yang sedang dibuka, lalu mengurutkan yang paling sesuai',
+        'Dikerjakan secara remote dalam tim tiga orang. Bagian saya: Docker build dan deployment ke cloud, keamanan akun (verifikasi email, reset kata sandi), kalkulator hibah, halaman pinjaman, dan perbaikan tampilan mobile',
+        'Dwibahasa (Hongaria/Inggris) dan sudah live di fundor.hu',
+      ],
+    },
+  },
 ];
 
 export const skillGroups = [
   {
     title: { en: 'Languages', id: 'Bahasa Pemrograman' },
-    items: ['HTML', 'CSS', 'JavaScript', 'PHP', 'SQL', 'C#'],
+    items: ['HTML', 'CSS', 'JavaScript', 'TypeScript', 'PHP', 'SQL', 'C#'],
   },
   {
     title: { en: 'Frameworks & Libraries', id: 'Framework & Library' },
-    items: ['Laravel', 'ASP.NET', 'React Native', 'Bootstrap'],
+    items: ['Laravel', 'React', 'Next.js', 'React Native', 'Express', 'GraphQL', 'Tailwind CSS', 'ASP.NET', 'Bootstrap'],
   },
   {
     title: { en: 'Tools', id: 'Perangkat' },
-    items: ['Visual Studio Code', 'Visual Studio', 'Navicat', 'Microsoft Office', 'CorelDraw', 'Canva'],
+    items: ['Docker', 'Git', 'Firebase', 'Visual Studio Code', 'Visual Studio', 'Navicat', 'Microsoft Office', 'CorelDraw', 'Canva'],
   },
 ];
 
@@ -460,6 +551,7 @@ export const ui = {
     sub: { en: 'Things I’ve built along the way.', id: 'Hal-hal yang telah saya bangun.' },
     live: { en: 'Visit site', id: 'Kunjungi situs' },
     research: { en: 'Read the research', id: 'Baca risetnya' },
+    code: { en: 'View code', id: 'Lihat kode' },
   },
   research: {
     title: { en: 'Research', id: 'Riset' },
