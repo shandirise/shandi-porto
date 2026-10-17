@@ -26,7 +26,20 @@ const pad = (n) => String(n).padStart(2, '0');
 // Last word in italics, e.g. "Let’s work <em>together</em>"
 const italicLast = (text) => esc(text).replace(/(\S+)$/, '<em>$1</em>');
 
-const sortKey = ([year, month = 0]) => year * 100 + month;
+export const sortKey = ([year, month = 0]) => year * 100 + month;
+
+const formatDate = ([year, month], lang) =>
+  month
+    ? new Intl.DateTimeFormat(lang === 'id' ? 'id-ID' : 'en-US', { month: 'short', year: 'numeric' }).format(
+        new Date(year, month - 1),
+      )
+    : String(year);
+
+export const formatRange = (start, end, lang) =>
+  end ? `${formatDate(start, lang)} – ${formatDate(end, lang)}` : formatDate(start, lang);
+
+// Where the generated PDF CV is published (see scripts/cv.js and vite.config.js)
+export const cvPath = (lang) => `/cv/${profile.name.replace(/\s+/g, '-')}-CV-${lang.toUpperCase()}.pdf`;
 
 export const timeline = [
   { ...education, type: 'education' },
@@ -49,14 +62,8 @@ export function renderSections(lang) {
   const t = (v) => pick(v, lang);
   const list = (items) => items.map((p) => `<li>${esc(p)}</li>`).join('');
   const external = (href, label) => `<a class="link-arrow" href="${esc(href)}" target="_blank" rel="noopener">${esc(label)} <span aria-hidden="true">↗</span></a>`;
-
-  const formatDate = ([year, month]) =>
-    month
-      ? new Intl.DateTimeFormat(lang === 'id' ? 'id-ID' : 'en-US', { month: 'short', year: 'numeric' }).format(
-          new Date(year, month - 1),
-        )
-      : String(year);
-  const formatRange = (start, end) => (end ? `${formatDate(start)} – ${formatDate(end)}` : formatDate(start));
+  const range = (start, end) => formatRange(start, end, lang);
+  const cvLabel = esc(t(ui.cv.download));
 
   const stats = [
     [education.gpa, ui.stats.gpa],
@@ -86,7 +93,7 @@ export function renderSections(lang) {
           <dt>${esc(t(ui.about.education))}</dt>
           <dd>
             <strong>${esc(t(education.title))}</strong>
-            <span>${esc(education.org)} · ${formatRange(education.start, education.end)}</span>
+            <span>${esc(education.org)} · ${range(education.start, education.end)}</span>
             ${t(education.points).map((p) => `<span>${esc(p)}</span>`).join('')}
           </dd>
         </div>
@@ -119,7 +126,7 @@ export function renderSections(lang) {
               (item) => `
             <li class="tl-item reveal" data-type="${item.type}">
               <div class="tl-when">
-                <time>${formatRange(item.start, item.end)}</time>
+                <time>${range(item.start, item.end)}</time>
                 <span class="tl-type">${esc(t(ui.journey[item.type]))}</span>
               </div>
               <div class="tl-what">
@@ -250,6 +257,7 @@ export function renderSections(lang) {
     <h2>${italicLast(t(ui.contact.title))}</h2>
     <p class="contact-sub">${esc(t(ui.contact.sub))}</p>
     <a class="contact-email" href="mailto:${esc(profile.email)}">${esc(profile.email)}</a>
+    <p class="contact-cv"><a class="btn" href="${cvPath(lang)}" download>${cvLabel} (PDF) <span aria-hidden="true">↓</span></a></p>
     <ul class="contact-links">
       <li><a href="${esc(profile.linkedin)}" target="_blank" rel="noopener me">LinkedIn <span aria-hidden="true">↗</span></a></li>
       <li><a href="${esc(profile.github)}" target="_blank" rel="noopener me">GitHub <span aria-hidden="true">↗</span></a></li>
@@ -257,6 +265,7 @@ export function renderSections(lang) {
     </ul>`;
 
   return {
+    'cv-header': `<a class="cv-link" href="${cvPath(lang)}" download aria-label="${cvLabel} (PDF)">CV <span aria-hidden="true">↓</span></a>`,
     stats,
     'about-content': about,
     'journey-filters': filters,

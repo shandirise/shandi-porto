@@ -4,6 +4,11 @@
 //
 // To add photos/certificates: put the file in public/images/... and fill in `src` / `image`
 // with the path starting from /images, e.g. '/images/gallery/kkn-2025.jpg'.
+//
+// The downloadable PDF CV (scripts/cv.js) is generated from this file on every build.
+// `cv` on an experience, organization or project controls the CV only (the website shows everything):
+//   'full'  = title, dates and bullet points    'brief' = one line    false = left out
+// Defaults: experience and projects 'full', organizations 'brief'.
 
 export const profile = {
   name: 'Shandi Himawan',
@@ -40,6 +45,7 @@ export const education = {
 export const experience = [
   {
     title: { en: 'Computer Course Tutor', id: 'Tutor Kursus Komputer' },
+    cv: 'brief',
     org: 'PSDK UMP',
     place: 'Banyumas',
     start: [2023, 1],
@@ -51,6 +57,7 @@ export const experience = [
   },
   {
     title: { en: 'Polling Committee, 2024 Indonesian General Election', id: 'Panitia Pemilihan Umum Indonesia 2024' },
+    cv: 'brief',
     org: { en: 'General Elections Commission (KPU)', id: 'Komisi Pemilihan Umum (KPU)' },
     place: 'Banyumas',
     start: [2024, 1],
@@ -68,6 +75,7 @@ export const experience = [
   },
   {
     title: { en: 'Polling Committee, 2024 Regional Head Election', id: 'Panitia Pemilihan Kepala Daerah 2024' },
+    cv: 'brief',
     org: { en: 'General Elections Commission (KPU)', id: 'Komisi Pemilihan Umum (KPU)' },
     place: 'Banyumas',
     start: [2024, 10],
@@ -106,6 +114,7 @@ export const experience = [
   },
   {
     title: { en: 'Secretary', id: 'Sekretaris' },
+    cv: 'brief',
     org: 'Koperasi Desa Merah Putih',
     place: 'Banyumas',
     start: [2025, 4],
@@ -117,6 +126,7 @@ export const experience = [
   },
   {
     title: { en: 'English Extracurricular Teacher', id: 'Pengajar Ekskul Bahasa Inggris' },
+    cv: 'brief',
     org: 'SMP Al Irsyad Boarding School',
     place: 'Banyumas',
     start: [2025, 7],
@@ -223,6 +233,7 @@ export const organizations = [
   },
   {
     title: { en: 'Chairperson', id: 'Ketua' },
+    cv: 'full',
     org: 'Elite English Voice UMP',
     start: [2024],
     end: [2025],
@@ -270,6 +281,7 @@ export const organizations = [
 export const projects = [
   {
     name: 'F1 Pedia',
+    cv: 'brief',
     type: { en: 'Web Front-End', id: 'Web Front-End' },
     year: 2023,
     stack: ['HTML', 'CSS'],
@@ -283,6 +295,7 @@ export const projects = [
   },
   {
     name: { en: 'Pharmacy Store Website', id: 'Website Toko Apotek' },
+    cv: 'brief',
     type: { en: 'Web Front-End', id: 'Web Front-End' },
     year: 2023,
     stack: ['ASP.NET', 'C#', 'SQL'],
@@ -386,6 +399,7 @@ export const projects = [
   },
   {
     name: 'Fundor.hu',
+    cv: false, // already in Experience on the CV
     type: { en: 'Pilot project · Laravel + React', id: 'Pilot project · Laravel + React' },
     year: 2026,
     stack: ['Laravel', 'PHP', 'React', 'TypeScript', 'Tailwind CSS', 'Docker'],
@@ -409,7 +423,7 @@ export const projects = [
 
 export const skillGroups = [
   {
-    title: { en: 'Languages', id: 'Bahasa Pemrograman' },
+    title: { en: 'Programming Languages', id: 'Bahasa Pemrograman' },
     items: ['HTML', 'CSS', 'JavaScript', 'TypeScript', 'PHP', 'SQL', 'C#'],
   },
   {
@@ -588,4 +602,18 @@ export const ui = {
   top: { en: 'Back to top', id: 'Kembali ke atas' },
   langLabel: { en: 'Ganti ke Bahasa Indonesia', id: 'Switch to English' },
   menu: { en: 'Menu', id: 'Menu' },
+  // Download button + section headings of the PDF CV
+  cv: {
+    download: { en: 'Download CV', id: 'Unduh CV' },
+    summary: { en: 'Summary', id: 'Ringkasan' },
+    skills: { en: 'Skills', id: 'Keahlian' },
+    experience: { en: 'Experience', id: 'Pengalaman Kerja' },
+    projects: { en: 'Projects', id: 'Proyek' },
+    education: { en: 'Education', id: 'Pendidikan' },
+    certifications: { en: 'Certifications', id: 'Sertifikasi' },
+    publications: { en: 'Publications', id: 'Publikasi' },
+    leadership: { en: 'Leadership & Organizations', id: 'Organisasi & Kepemimpinan' },
+    other: { en: 'Additional Experience', id: 'Pengalaman Lainnya' },
+    languages: { en: 'Languages', id: 'Bahasa' },
+  },
 };

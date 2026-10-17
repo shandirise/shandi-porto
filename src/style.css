@@ -227,6 +227,23 @@ main,
   text-underline-offset: 4px;
 }
 
+.cv-link {
+  display: inline-block;
+  padding: 5px 10px;
+  border: 1px solid var(--line-strong);
+  border-radius: 2px;
+  font: 0.8rem var(--font-mono);
+  color: var(--text);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.cv-link:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
 .menu-toggle {
   display: none;
   position: relative;
@@ -1211,6 +1228,10 @@ a.cert-thumb:hover img {
 
 .contact-email:hover {
   color: var(--accent);
+}
+
+.contact-cv {
+  margin: 32px 0 0;
 }
 
 .contact-links {

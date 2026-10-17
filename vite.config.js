@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite';
 import { profile, education, skillGroups } from './src/data.js';
 import { renderSections } from './src/templates.js';
+import { buildCv, cvFiles } from './scripts/cv.js';
 
 // The public address of the site. On Vercel it is filled in automatically from the production domain;
 // set SITE_URL (e.g. https://shandihimawan.com) to override. Without it, URL-based tags are left out
@@ -34,6 +35,15 @@ function structuredData() {
 function seo() {
   return {
     name: 'seo',
+    // In `npm run dev`, build the CV on request so the download button works there too
+    configureServer(server) {
+      server.middlewares.use(async (req, res, next) => {
+        const file = cvFiles.find((f) => req.url?.split('?')[0] === `/${f.fileName}`);
+        if (!file) return next();
+        res.setHeader('Content-Type', 'application/pdf');
+        res.end(await buildCv(file.lang, siteUrl));
+      });
+    },
     transformIndexHtml(html) {
       // Write the English content into the page so search engines and link previews see it without running JS
       for (const [id, markup] of Object.entries(renderSections('en'))) {
@@ -54,7 +64,10 @@ function seo() {
       }
       return { html, tags };
     },
-    generateBundle() {
+    async generateBundle() {
+      for (const { lang, fileName } of cvFiles) {
+        this.emitFile({ type: 'asset', fileName, source: await buildCv(lang, siteUrl) });
+      }
       this.emitFile({
         type: 'asset',
         fileName: 'robots.txt',
